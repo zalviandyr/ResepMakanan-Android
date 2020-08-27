@@ -11,15 +11,6 @@
         android:orientation="horizontal"
         android:theme="@style/ScrollEdge" />
 
-    <!--    <TextView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="bottom"-->
-    <!--        android:layout_marginBottom="30dp"-->
-    <!--        android:gravity="center"-->
-    <!--        android:text="sdsasdasd"-->
-    <!--        android:textSize="20sp"/>-->
-
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bap"
         style="@style/Widget.MaterialComponents.BottomAppBar.Colored"

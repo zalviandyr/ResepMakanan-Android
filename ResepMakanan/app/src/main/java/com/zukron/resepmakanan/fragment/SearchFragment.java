@@ -6,16 +6,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
@@ -37,7 +34,6 @@ public class SearchFragment extends Fragment implements MealAdapter.OnSelected {
     private RecyclerView rvSearch;
     private ProgressBar pbSearch;
     private MealAdapter mealAdapter;
-    private NestedScrollView nestedScrollView;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -56,33 +52,6 @@ public class SearchFragment extends Fragment implements MealAdapter.OnSelected {
         inputSearch = view.findViewById(R.id.input_search);
         pbSearch = view.findViewById(R.id.pb);
         rvSearch = view.findViewById(R.id.rv);
-        nestedScrollView = view.findViewById(R.id.nsv);
-
-        setBottomExtraSpace();
-    }
-
-    /***
-     * add extra space in bottom while scrolling near bottom of nested scroll view
-     */
-    private void setBottomExtraSpace() {
-        // is equal 55dp
-        final float padBottom = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, getResources().getDisplayMetrics());
-        nestedScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                // because i'am have super brain and genius, i'am create this formula
-                int showIn = nestedScrollView.getChildAt(0).getHeight() - 100;
-                int scrollVal = nestedScrollView.getScrollY() + nestedScrollView.getHeight();
-
-                if (scrollVal > showIn) {
-                    nestedScrollView.setPadding(0, 0, 0, (int) padBottom);
-                    nestedScrollView.setClipToPadding(true);
-                } else {
-                    nestedScrollView.setPadding(0, 0, 0, 0);
-                    nestedScrollView.setClipToPadding(false);
-                }
-            }
-        });
     }
 
     @Override

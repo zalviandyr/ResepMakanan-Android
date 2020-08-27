@@ -5,18 +5,15 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
 
 import com.android.volley.VolleyError;
@@ -40,7 +37,6 @@ public class HomeFragment extends Fragment implements APICategory.OnCategoryResp
     private RecyclerView rvCategory;
     private RandomMealAdapter randomMealAdapter;
     private CategoryAdapter categoryAdapter;
-    private NestedScrollView nestedScrollView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -60,7 +56,6 @@ public class HomeFragment extends Fragment implements APICategory.OnCategoryResp
         dotsIndicator = view.findViewById(R.id.di);
         pbCategory = view.findViewById(R.id.pb);
         rvCategory = view.findViewById(R.id.rv);
-        nestedScrollView = view.findViewById(R.id.nsv);
 
         categoryAdapter = new CategoryAdapter(getContext());
         randomMealAdapter = new RandomMealAdapter(getContext());
@@ -69,31 +64,6 @@ public class HomeFragment extends Fragment implements APICategory.OnCategoryResp
         apiCategory.getCategories();
 
         setViewpager();
-        setBottomExtraSpace();
-    }
-
-    /***
-     * add extra space in bottom while scrolling near bottom of nested scroll view
-     */
-    private void setBottomExtraSpace() {
-        // is equal 55dp
-        final float padBottom = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, getResources().getDisplayMetrics());
-        nestedScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                // because i'am have super brain and genius, i'am create this formula
-                int showIn = nestedScrollView.getChildAt(0).getHeight() - 100;
-                int scrollVal = nestedScrollView.getScrollY() + nestedScrollView.getHeight();
-
-                if (scrollVal > showIn) {
-                    nestedScrollView.setPadding(0, 0, 0, (int) padBottom);
-                    nestedScrollView.setClipToPadding(true);
-                } else {
-                    nestedScrollView.setPadding(0, 0, 0, 0);
-                    nestedScrollView.setClipToPadding(false);
-                }
-            }
-        });
     }
 
     private void setViewpager() {
@@ -109,6 +79,7 @@ public class HomeFragment extends Fragment implements APICategory.OnCategoryResp
         });
 
         viewPager2.setAdapter(randomMealAdapter);
+        viewPager2.setOffscreenPageLimit(1);
         viewPager2.setPageTransformer(compositePageTransformer);
 
         // set dot
