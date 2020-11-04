@@ -1,7 +1,10 @@
 # Android Project
 
 **Name :** Resep Makanan
-<br>
+
 **API Server**
-<br>
-https://www.themealdb.com/api.php
+
+-   https://www.themealdb.com/api.php
+
+**Screenshot**
+![screenshot](https://raw.githubusercontent.com/zalviandyr/ResepMakanan-Android/master/Screenshot/Resep%20Makanan%20-%20Android.jpg)
